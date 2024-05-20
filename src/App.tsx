@@ -29,7 +29,7 @@ const App: React.FC = () => {
     });
     const id = await db.add('medications', newMedication);
     // Schedule notifications
-    scheduleNotification(id, name, interval, startTime);
+    scheduleNotification(id as number, name, interval, startTime);
   };
 
   const scheduleNotification = (
@@ -53,8 +53,6 @@ const App: React.FC = () => {
               registration.showNotification('Medication Reminder', {
                 body: `Time to take your medication: ${name}`,
                 tag: `medication-reminder-${id}`,
-                renotify: true,
-                vibrate: [200, 100, 200],
               });
               // Schedule the next notification
               scheduleNotification(id, name, interval, nextTime);
