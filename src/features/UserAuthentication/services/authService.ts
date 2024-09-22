@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { API_URL } from '../constants';
+
+import axiosInstance from '../../../services/axiosInstance';
 import { IUserLoginObject, IUserSignUpObject } from '../types/user';
 
 const signUp = (user: IUserSignUpObject) => {
-  return axios.post(`${API_URL}/user/signup`, user);
+  return axiosInstance.post(`/doctor/signup`, user);
 };
 
 const login = (userCredentials: IUserLoginObject) => {
-  return axios.post(`${API_URL}/user/login`, userCredentials);
+  return axiosInstance.post(`/doctor/login`, userCredentials);
 };
 
 const authService = {

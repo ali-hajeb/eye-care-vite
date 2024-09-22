@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 export interface UserPanelProps {
   context?: {
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

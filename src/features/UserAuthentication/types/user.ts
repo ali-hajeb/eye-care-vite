@@ -1,40 +1,19 @@
+export type IMajor = 'عمومی' | 'متخصص' | 'فوق تخصص';
 export interface IUserSignUpObject {
-  email: string;
   password: string;
   firstName: string;
   lastName: string;
-  firstName_en: string;
-  lastName_en: string;
-  fatherName: string;
-  weight: number;
-  isMarried: number;
-  education: number;
-  job: string;
-  immediateFamily: string;
-  carerFname: string;
-  carerLname: string;
-  carerAge: number;
-  carerRel: string;
-  carerEducation: number;
-  carerGender: number;
-  gender: number;
+  gender: boolean;
   idCode: string;
-  isSmoker: boolean;
-  isAlcoholic: boolean;
-  allergy: string;
-  hasDiabetes: boolean;
-  hasHTN: boolean;
-  hasEyeKer: boolean;
-  eyemh: string;
-  drugHistory: string[];
-  tel: string;
-  birth: Date;
-  address: string;
-  age: number;
+  field: string;
+  major: IMajor;
+  nezam: string;
+  workDays?: number[];
+  maxPatients?: number
 }
 
 export interface IUserLoginObject {
-  email: string;
+  idCode: string;
   password: string;
   rememberMe: boolean;
 }
@@ -50,7 +29,7 @@ export interface IUserRedux extends IUser {
 }
 
 export default interface IUser {
-  id: string;
-  email: string;
+  _id: string;
+  idCode: string;
   token: string;
 }

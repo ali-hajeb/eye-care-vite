@@ -1,33 +1,28 @@
 import React from 'react';
-import { AppShell, Burger, Group } from '@mantine/core';
+import { AppShell, Burger, Group, Title } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import SimpleNavbar from '../../components/SimpleNavbar';
 import {
-  Icon2fa,
-  IconBellRinging,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
-  IconReceipt2,
-  IconSettings,
+  IconEyePlus,
+  IconHome,
+  IconTicket,
+  IconUserHeart,
+  IconUsersGroup,
 } from '@tabler/icons-react';
 import { Outlet } from 'react-router-dom';
 
 export interface MainPanelContainerProps {}
 
 const data = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
+  { link: '/', label: 'داشبور', icon: IconHome },
+  { link: '/patients', label: 'بیماران', icon: IconUsersGroup },
+  { link: '/nobat', label: 'نوبت', icon: IconTicket },
+  { link: '/profile', label: 'پروفایل', icon: IconUserHeart },
 ];
 
 const MainPanelContainer: React.FunctionComponent<MainPanelContainerProps> = () => {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  // const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
   return (
     <AppShell
@@ -53,7 +48,8 @@ const MainPanelContainer: React.FunctionComponent<MainPanelContainerProps> = () 
             visibleFrom="sm"
             size="sm"
           /> */}
-        <h1>Eye Care</h1>
+        <IconEyePlus size={48} stroke={2} color='#667BC6' />
+        <Title>Eye Care</Title>
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">

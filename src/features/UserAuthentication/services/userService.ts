@@ -1,12 +1,17 @@
-import axios from 'axios';
-import { API_URL } from '../constants';
+import axiosInstance from '../../../services/axiosInstance';
+import { IUserSignUpObject } from '../types/user';
 
-const getUserProfile = (username: string) => {
-  return axios.get(`${API_URL}/user/${username}`);
+const updateUser = (user: IUserSignUpObject) => {
+  return axiosInstance.patch(`/doctor/`, user);
+};
+
+const getUser = () => {
+  return axiosInstance.get(`/doctor/me`);
 };
 
 const userService = {
-  getUserProfile,
+  getUser,
+  updateUser,
 };
 
 export default userService;

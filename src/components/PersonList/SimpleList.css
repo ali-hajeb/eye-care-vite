@@ -1,0 +1,44 @@
+.simple-list {
+  position: relative;
+  padding: 0.5rem 1rem;
+  padding-bottom: 2.5rem;
+}
+
+.simple-list--more {
+  background: linear-gradient(
+    0deg,
+    rgba(var(--secondary-bg-rgb), 1) 0%,
+    rgba(var(--secondary-bg-rgb), 1) 50%,
+    rgba(var(--secondary-bg-rgb), 0) 100%
+  );
+  height: 6rem;
+  padding: 2rem 0 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.simple-list--list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.simple-list--item {
+  margin: 1rem 0;
+}
+
+.simple-list--item-image {
+  height: 2rem;
+  width: 2rem;
+}
+
+.simple-list--item-title {
+  min-width: 10ch;
+  text-align: center;
+}

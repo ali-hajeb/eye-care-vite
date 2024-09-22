@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userLocalStorageKey } from '../constants';
 import { IUserRedux } from '../types/user';
 import userAuthAction from './userAuthAction';
+import { userLocalStorageKey } from '../constants';
 
-const initialState: IUserRedux = {
+export const initialState: IUserRedux = {
   isLoggedIn: false,
-  id: '',
-  email: '',
+  _id: '',
+  idCode: '',
   token: '',
   status: 'idle',
   response: null,
@@ -50,6 +50,52 @@ const userSlice = createSlice({
           message: string;
         } | null;
       })
+      .addCase(userAuthAction.updateUser.pending, (state) => {
+        return {
+          ...state,
+          status: 'loading',
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.updateUser.fulfilled, (state, action) => {
+        console.log('[userSlice] <updateUser.ful>: ', action.payload);
+        return {
+          ...state,
+          // ...action.payload,
+          status: 'succeeded',
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.updateUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.response = action.payload as {
+          code: number;
+          message: string;
+        } | null;
+      })
+      .addCase(userAuthAction.getUser.pending, (state) => {
+        return {
+          ...state,
+          status: 'loading',
+          response: null,
+        };
+      })
+      .addCase(userAuthAction.getUser.fulfilled, (state, action) => {
+        console.log('[userSlice] <getUser.ful>: ', action.payload);
+        return {
+          ...state,
+          // ...action.payload,
+          status: 'succeeded',
+          response: { code: 200, message: 'ok' },
+        };
+      })
+      .addCase(userAuthAction.getUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.response = action.payload as {
+          code: number;
+          message: string;
+        } | null;
+      })
       .addCase(userAuthAction.login.pending, (state) => {
         return {
           ...state,
@@ -85,7 +131,7 @@ const userSlice = createSlice({
           status: 'succeeded',
           response: null,
         };
-      });
+      })
   },
 });
 

@@ -1,5 +1,4 @@
-import React, { ReactElement, useState } from 'react';
-import { IconAlertCircle } from '@tabler/icons-react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   resetResponse,
@@ -18,9 +17,9 @@ const LoginPanel: React.FC<LoginPanelProps> = () => {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      email: '',
+      idCode: '',
       password: '',
-      rememberMe: false,
+      rememberMe: true,
     },
   });
 
@@ -44,16 +43,17 @@ const LoginPanel: React.FC<LoginPanelProps> = () => {
   return (
     <Box maw={500} mx="auto" px={5} py={10}>
       <Title order={1} ta={'center'} mb={'1em'}>
-        نام نویسی در سایت
+        ورود
       </Title>
       <form onSubmit={formSubmitHandler}>
         <TextInput
-          label="ایمیل"
-          key={form.key('email')}
-          {...form.getInputProps('email')}
+          label="کد ملی"
+          key={form.key('idCode')}
+          {...form.getInputProps('idCode')}
         />
         <TextInput
           label="گذرواژه"
+          type='password'
           key={form.key('password')}
           {...form.getInputProps('password')}
         />
@@ -61,10 +61,10 @@ const LoginPanel: React.FC<LoginPanelProps> = () => {
           my={'md'}
           label="مرا به یاد داشته باش"
           key={form.key('rememberMe')}
-          {...form.getInputProps('rememberMe', {type: 'checkbox'})}
+          {...form.getInputProps('rememberMe', { type: 'checkbox' })}
         />
-        <Button fullWidth mb={'sm'} type="submit">
-          ورود
+        <Button type="submit" fullWidth mb={'sm'} disabled={status === 'loading'}>
+          {status === 'loading' ? 'در حال پردازش ...' : 'ورود'}
         </Button>
         <Button fullWidth variant="subtle" onClick={buttonNavigateHandler}>
           نام نویسی در سایت

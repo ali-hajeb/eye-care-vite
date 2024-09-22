@@ -1,10 +1,9 @@
-import { useState, FC } from 'react';
-import { Group, Code } from '@mantine/core';
-import {
-  IconSwitchHorizontal,
-  IconLogout,
-} from '@tabler/icons-react';
+import { FC } from 'react';
+import { IconLogout } from '@tabler/icons-react';
 import styles from './Navbar.module.css';
+import { useAppDispatch } from '../../store';
+import { userAuthActions } from '../../features/UserAuthentication';
+import { NavLink } from 'react-router-dom';
 
 export interface INavItem {
   link: string;
@@ -13,36 +12,29 @@ export interface INavItem {
 }
 
 export interface SimpleNavbarProps {
-  items: INavItem[]
+  items: INavItem[];
 }
 
-
 const SimpleNavbar: FC<SimpleNavbarProps> = ({ items }) => {
-  const [active, setActive] = useState('Billing');
+  const dispatch = useAppDispatch();
 
   const links = items.map((item) => (
-    <a
-      className={styles.link}
-      data-active={item.label === active || undefined}
-      href={item.link}
+    <NavLink
+      className={({ isActive }) =>
+        isActive ? styles.link + ' ' + styles.active : styles.link
+      }
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
+      to={item.link}
     >
       <item.icon className={styles.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </NavLink>
   ));
 
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarMain}>
-        <Group className={styles.header} justify="space-between">
-          <h1>Eye Care</h1>
-          <Code fw={700}>v3.1.2</Code>
-        </Group>
+        
         {links}
       </div>
 
@@ -50,19 +42,10 @@ const SimpleNavbar: FC<SimpleNavbarProps> = ({ items }) => {
         <a
           href="#"
           className={styles.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={styles.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
-        <a
-          href="#"
-          className={styles.link}
-          onClick={(event) => event.preventDefault()}
+          onClick={() => dispatch(userAuthActions.logout())}
         >
           <IconLogout className={styles.linkIcon} stroke={1.5} />
-          <span>Logout</span>
+          <span>خروج</span>
         </a>
       </div>
     </nav>

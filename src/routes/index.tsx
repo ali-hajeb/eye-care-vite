@@ -4,9 +4,17 @@ import DashboardPage from '../pages/dashboard';
 import ForgetPassPage from '../pages/forgetpass';
 import LogoutPage from '../pages/logout';
 import SignupPage from '../pages/signup';
+import PatientPage from '../pages/[patient]';
+import ProfilePage from '../pages/profile';
+import PatientsPage from '../pages/patients';
+import NobatPage from '../pages/nobat';
 
 const protectedRoutes: RouteObject[] = [
   { index: true, element: <DashboardPage /> },
+  { path: '/patients/:id', element: <PatientPage /> },
+  { path: '/patients', element: <PatientsPage /> },
+  { path: '/nobat', element: <NobatPage /> },
+  { path: '/profile', element: <ProfilePage /> },
   { path: '/logout', element: <LogoutPage /> },
 ];
 const authenticationRoutes: RouteObject[] = [
