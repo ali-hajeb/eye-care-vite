@@ -51,7 +51,7 @@ const DashboardPage: React.FunctionComponent<DashboardPageProps> = () => {
     <Box>
       <Title>درود!</Title>
       <Grid>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, md: 6 }}>
           <Box mt={'md'}>
             <Title order={2} mb={20}>
               بیماران
@@ -59,7 +59,7 @@ const DashboardPage: React.FunctionComponent<DashboardPageProps> = () => {
             <PersonList list={patients} link="/patients" />
           </Box>
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span={{ base: 12, md: 6 }}>
           <Box mt={'md'}>
             <Title order={2} mb={20}>
               نوبت‌های امروز
