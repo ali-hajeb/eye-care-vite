@@ -9,9 +9,11 @@ import {
 import moment from 'jalali-moment';
 import { IMedicine } from '../common/types';
 
+type INobat = { date: string };
+
 export const transformValue = (
   field: PatientInfoFields,
-  data: string | number | boolean | string[] | Date | IMedicine[] | undefined,
+  data: string | number | boolean | string[] | Date | IMedicine[] | INobat[] | undefined,
 ) => {
   if (patientBooleanFields.includes(field))
     return data ? (
@@ -29,6 +31,10 @@ export const transformValue = (
   else if (field === 'meds') {
     const meds = (data as IMedicine[]).map(m => m.name);
     return meds.join('، ');
+  }
+  else if (field === 'nobat') {
+    const dates = (data as INobat[])?.map(d => moment(d.date).locale('fa').format('YYYY/MM/DD'));
+    return dates.join('، ')
   }
   else return (data as string);
 };

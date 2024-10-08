@@ -8,11 +8,16 @@ import PatientPage from '../pages/[patient]';
 import ProfilePage from '../pages/profile';
 import PatientsPage from '../pages/patients';
 import NobatPage from '../pages/nobat';
+import PostPage from '../pages/[post]';
+import BlogPage from '../pages/blog';
 
 const protectedRoutes: RouteObject[] = [
   { index: true, element: <DashboardPage /> },
   { path: '/patients/:id', element: <PatientPage /> },
   { path: '/patients', element: <PatientsPage /> },
+  { path: '/blog/post/:id', element: <PostPage /> },
+  { path: '/blog/new', element: <PostPage /> },
+  { path: '/blog', element: <BlogPage /> },
   { path: '/nobat', element: <NobatPage /> },
   { path: '/profile', element: <ProfilePage /> },
   { path: '/logout', element: <LogoutPage /> },

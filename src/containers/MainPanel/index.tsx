@@ -5,6 +5,7 @@ import SimpleNavbar from '../../components/SimpleNavbar';
 import {
   IconEyePlus,
   IconHome,
+  IconPencilHeart,
   IconTicket,
   IconUserHeart,
   IconUsersGroup,
@@ -17,6 +18,7 @@ const data = [
   { link: '/', label: 'داشبور', icon: IconHome },
   { link: '/patients', label: 'بیماران', icon: IconUsersGroup },
   { link: '/nobat', label: 'نوبت', icon: IconTicket },
+  { link: '/blog', label: 'مطالب', icon: IconPencilHeart },
   { link: '/profile', label: 'پروفایل', icon: IconUserHeart },
 ];
 

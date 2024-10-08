@@ -1,16 +1,18 @@
-import { Box, Grid, Title } from '@mantine/core';
+import { Box, Card, Grid, Title } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
-import PersonList from '../components/PersonList';
 import axiosInstance from '../services/axiosInstance';
 import { IPatient } from '../common/types';
-import { IPerson } from '../components/PersonList/types';
 import { useAppSelector } from '../store';
+import CustomTable from '../components/Table';
+import { useNavigate } from 'react-router-dom';
 
 export interface DashboardPageProps {}
 
 const DashboardPage: React.FunctionComponent<DashboardPageProps> = () => {
-  const [patients, setPatients] = useState<IPerson[]>();
-  const [nobat, setNobat] = useState<IPerson[]>();
+  const navigate = useNavigate();
+
+  const [patients, setPatients] = useState<string[][]>();
+  const [nobat, setNobat] = useState<string[][]>();
 
   const { _id } = useAppSelector((state) => state.user);
 
@@ -19,11 +21,12 @@ const DashboardPage: React.FunctionComponent<DashboardPageProps> = () => {
       .get('/user/doctor/all', { params: { limit: 5, populate: ['meds'] } })
       .then((res) => {
         const data = res.data as IPatient[];
-        const patients: IPerson[] = data.map((p) => ({
-          id: p._id,
-          name: `${p.firstName} ${p.lastName}`,
-          data: { ...p },
-        }));
+        const patients: string[][] = data.map((p, i) => [
+          p._id,
+          i + 1,
+          `${p.firstName} ${p.lastName}`,
+          p.idCode,
+        ]);
 
         setPatients(patients);
       });
@@ -38,34 +41,57 @@ const DashboardPage: React.FunctionComponent<DashboardPageProps> = () => {
         },
       })
       .then((res) => {
-        const patients: IPerson[] = res.data.map(({ patient }) => ({
-          id: patient._id,
-          name: `${patient.firstName} ${patient.lastName}`,
-          data: { ...patient },
-        }));
+        const patients: string[][] = res.data.map(({ patient }, i) => [
+          patient._id,
+          i + 1,
+          `${patient.firstName} ${patient.lastName}`,
+          patient.idCode,
+        ]);
         setNobat(patients);
       });
   }, [_id]);
 
+  const goToPatientPage = (id: string) => {
+    navigate(`/patients/${id}`);
+  };
+
   return (
     <Box>
       <Title>درود!</Title>
-      <Grid>
+      <Grid mt={'md'}>
         <Grid.Col span={{ base: 12, md: 6 }}>
-          <Box mt={'md'}>
-            <Title order={2} mb={20}>
+          <Card shadow="md" radius={'md'}>
+            <Title order={2} mb={'md'}>
               بیماران
             </Title>
-            <PersonList list={patients} link="/patients" />
-          </Box>
+            {patients && (
+              <CustomTable
+                headers={['ردیف', 'نام و نام خانوادگی', 'کد ملی']}
+                data={patients}
+                highlightOnHover
+                limit={5}
+                striped
+                onRowClickHandler={goToPatientPage}
+              />
+            )}
+          </Card>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>
-          <Box mt={'md'}>
-            <Title order={2} mb={20}>
+          <Card shadow="md" radius={'md'}>
+            <Title order={2} mb={'md'}>
               نوبت‌های امروز
             </Title>
-            <PersonList list={nobat} link="/patients" />
-          </Box>
+            {nobat && (
+              <CustomTable
+                headers={['ردیف', 'نام و نام خانوادگی', 'کد ملی']}
+                data={nobat}
+                highlightOnHover
+                limit={5}
+                striped
+                onRowClickHandler={goToPatientPage}
+              />
+            )}
+          </Card>
         </Grid.Col>
       </Grid>
     </Box>

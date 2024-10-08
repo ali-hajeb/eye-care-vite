@@ -32,6 +32,7 @@ export interface IPatient {
   address?: string;
   age?: number;
   meds?: IMedicine[];
+  nobat?: Record<string, unknown>
 }
 
 export interface IDoctor {

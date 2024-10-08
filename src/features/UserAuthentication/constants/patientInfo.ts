@@ -36,6 +36,7 @@ export const patientInfoFields: Record<PatientInfoFields, string> = {
   immediateFamily: 'نزدیکان',
   job: 'شغل',
   tel: 'تلفن',
+  nobat: 'تاریخچه ویزیت'
 };
 
 export const EDUCATION = [

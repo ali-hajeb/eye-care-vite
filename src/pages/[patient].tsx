@@ -99,7 +99,7 @@ const PatientPage: React.FunctionComponent<PatientPageProps> = () => {
     } else {
       axiosInstance
         .get('/user/doctor/all', {
-          params: { filter: { _id: id }, populate: ['meds'] },
+          params: { filter: { _id: id }, populate: ['meds', 'nobat'] },
         })
         .then((res) => {
           const p = res.data as IPatient[];
@@ -135,11 +135,11 @@ const PatientPage: React.FunctionComponent<PatientPageProps> = () => {
                 );
                 if (patient[p as keyof IPatient] !== null) {
                   return (
-                    <Group align="baseline">
+                    <Group align="baseline" mb={'sm'}>
                       <Text fw={700}>
                         {patientInfoFields[p as keyof IPatient]}
                       </Text>
-                      <Text>
+                      <Text id={p}>
                         {transformValue(
                           p as keyof IPatient,
                           patient[p as keyof IPatient],
