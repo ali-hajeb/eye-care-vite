@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IPatient } from '../common/types';
 import axiosInstance from '../services/axiosInstance';
 import {
@@ -16,6 +16,10 @@ import {
 } from '@mantine/core';
 import CustomTable from '../components/Table';
 import { useNavigate } from 'react-router-dom';
+import { utils, writeFile } from 'xlsx';
+import { EDUCATION, patientInfoFields } from '../features/UserAuthentication/constants/patientInfo';
+import { transformValueToString } from '../utils/dataPresentation';
+import { IconDownload } from '@tabler/icons-react';
 
 export interface PatientsPageProps {}
 
@@ -29,8 +33,9 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
   });
 
   const [comboValue, setComboValue] = useState<string | null>(null);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>('');
   const [patients, setPatients] = useState<string[][]>();
+  const [p, setp] = useState<IPatient[]>();
 
   const patientBAK = useRef<string[][]>();
 
@@ -46,9 +51,16 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
 
   useEffect(() => {
     axiosInstance
-      .get('/user/doctor/all', { params: { populate: ['meds'] } })
+      .get('/user/doctor/all', { params: { populate: ['meds', 'nobat'] } })
       .then((res) => {
         const data = res.data as IPatient[];
+        const _d = data.map(d => {
+          for (const k in d) {
+            d[k] = transformValueToString(k, d[k]);
+          }
+          return d;
+        });
+        setp(_d);
         const patients: string[][] = data.map((p, i) => [
           p._id,
           `${i + 1}`,
@@ -57,7 +69,7 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
         ]);
 
         setPatients(patients);
-        patientBAK.current = [...patients]
+        patientBAK.current = [...patients];
       });
   }, []);
 
@@ -67,10 +79,34 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
   const onSearchClickHandler = () => {
     if (searchValue && comboValue) {
       const searchTypeIndex = comboValue === 'نام' ? 2 : 3;
-      const results = patients?.filter(p => p[searchTypeIndex].includes(searchValue));
-      setPatients(results)
+      const results = patients?.filter((p) =>
+        p[searchTypeIndex].includes(searchValue),
+      );
+      setPatients(results);
     }
   };
+
+  const exportFile = useCallback(() => {
+    if (p) {
+      /* generate worksheet from state */
+      const header: string[] = [];
+      for (const h in patientInfoFields) {
+        header.push(patientInfoFields[h]);
+      }
+      const ws = utils.json_to_sheet(p, {});
+      /* add headers to the worksheet */
+      utils.sheet_add_aoa(ws, [header], { origin: 'A1' });
+
+      /* add your data below the headers */
+      utils.sheet_add_json(ws, p, { origin: 'A2', skipHeader: true });
+      /* create workbook and append worksheet */
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, 'Data');
+      /* export to XLSX */
+      writeFile(wb, 'Report.xlsx');
+    }
+  }, [p]);
+
   return (
     <Container fluid>
       <Title order={1} mb={20}>
@@ -114,7 +150,14 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
             </Combobox>
           </Box>
           <Button onClick={onSearchClickHandler}>جستجو</Button>
-          <Button variant='outline' onClick={() => setPatients(patientBAK.current)}>پاک کردن فیلتر</Button>
+          <Button
+            variant="outline"
+            onClick={() => setPatients(patientBAK.current)}
+          >
+            پاک کردن فیلتر
+          </Button>
+          <Box style={{ flexGrow: '1' }}></Box>
+          <Button variant='subtle' onClick={exportFile}><IconDownload /></Button>
         </Group>
         {patients && (
           <CustomTable

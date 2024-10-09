@@ -57,9 +57,9 @@ const CustomTable: React.FunctionComponent<CustomTableProps> = ({
         <Table.Tbody>
           {data
             .slice(start * limit, start * limit + limit)
-            .map(([id, ...r], i) => (
+            .map(([id, ...r]) => (
               <Table.Tr
-                key={i}
+                key={id}
                 onClick={() => onRowClick(id)}
                 style={{ cursor: 'pointer' }}
               >

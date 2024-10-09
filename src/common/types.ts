@@ -30,7 +30,7 @@ export interface IPatient {
   tel?: string;
   birth?: Date | string;
   address?: string;
-  age?: number;
+  // age?: number;
   meds?: IMedicine[];
   nobat?: Record<string, unknown>
 }

@@ -51,7 +51,7 @@ const MainPanelContainer: React.FunctionComponent<MainPanelContainerProps> = () 
             size="sm"
           /> */}
         <IconEyePlus size={48} stroke={2} color='#667BC6' />
-        <Title>Eye Care</Title>
+        <Title order={1} fz={'h2'}>سامانه مدیریت بیماران</Title>
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">

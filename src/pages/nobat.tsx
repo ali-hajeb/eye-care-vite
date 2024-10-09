@@ -16,17 +16,21 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
   const { _id } = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    // console.log(moment(calendarValue).locale('fa').format('YYYY/MM/DD'));
     console.log(calendarValue);
-    calendarValue.setUTCHours(0, 0, 0, 0);
+    const updated = new Date(calendarValue);
+    updated.setUTCHours(0, 0, 0, 0);
+    // calendarValue.setUTCHours(0, 0, 0, 0);
     axiosInstance
       .get('/nobat/doc/all', {
         params: {
-          filter: { doctor: _id, date: calendarValue.toISOString() },
+          filter: { doctor: _id, date: updated.toISOString() },
           limit: 5,
           populate: ['patient'],
         },
       })
       .then((res) => {
+        console.log(res.data)
         const patients: string[][] = res.data.map(({ patient }, i) => [
           patient._id,
           i + 1,
@@ -50,7 +54,10 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
               <CalendarProvider locale="fa" round="x1">
                 <Calendar
                   defaultValue={calendarValue}
-                  onChange={(e) => setCalendarValue(new Date(e.value))}
+                  onChange={(e) => {
+                    console.log(e.value);
+                    setCalendarValue(new Date(e.value));
+                  }}
                 />
               </CalendarProvider>
             </Flex>
