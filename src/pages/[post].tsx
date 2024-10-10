@@ -46,7 +46,7 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
         if (isAxiosError(err)) {
           setRes({
             code: err.response?.status || 500,
-            message: err.response?.data,
+            message: 'مشکلی در ارسال درخواست پیش آمده‌است!',
           });
         }
       })
@@ -68,7 +68,7 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
         })
         .finally(() => setLoadingState(false));
     }
-  }, [id, navigate]);
+  }, [id]);
 
   const titleInputChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
@@ -120,7 +120,7 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
                 <TextEditor content={body} onChange={setBody} />
               </Box>
               <Group>
-                <Button disabled={loadingState} type="submit">
+                <Button disabled={loadingState} type="submit" loading={loadingState}>
                   {loadingState ? 'پردازش' : 'انتشار'}
                 </Button>
                 {id && (

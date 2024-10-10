@@ -49,7 +49,7 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
       <Title>نوبت‌‌ها</Title>
       <Grid>
         <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
-          <Card shadow="md" radius={'md'} px={1} py={5}>
+          <Card shadow="md" radius={'md'} px={1} py={5} mih={'100%'}>
             <Flex align={'center'} justify={'center'}>
               <CalendarProvider locale="fa" round="x1">
                 <Calendar
@@ -64,7 +64,7 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
           </Card>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6, lg: 8 }}>
-          <Card shadow="md" radius={'md'}>
+          <Card shadow="md" radius={'md'} mih={'100%'}>
             <Title order={2} mb={'md'}>
               بیماران
             </Title>

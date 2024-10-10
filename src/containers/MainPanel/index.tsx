@@ -6,6 +6,7 @@ import {
   IconEyePlus,
   IconHome,
   IconPencilHeart,
+  IconQuestionMark,
   IconTicket,
   IconUserHeart,
   IconUsersGroup,
@@ -19,6 +20,7 @@ const data = [
   { link: '/patients', label: 'بیماران', icon: IconUsersGroup },
   { link: '/nobat', label: 'نوبت', icon: IconTicket },
   { link: '/blog', label: 'مطالب', icon: IconPencilHeart },
+  { link: '/ticket', label: 'پرسش و پاسخ', icon: IconQuestionMark },
   { link: '/profile', label: 'پروفایل', icon: IconUserHeart },
 ];
 

@@ -10,11 +10,15 @@ import PatientsPage from '../pages/patients';
 import NobatPage from '../pages/nobat';
 import PostPage from '../pages/[post]';
 import BlogPage from '../pages/blog';
+import TicketsPage from '../pages/tickets';
+import TicketPage from '../pages/[ticket]';
 
 const protectedRoutes: RouteObject[] = [
   { index: true, element: <DashboardPage /> },
   { path: '/patients/:id', element: <PatientPage /> },
   { path: '/patients', element: <PatientsPage /> },
+  { path: '/ticket/:id', element: <TicketPage /> },
+  { path: '/ticket', element: <TicketsPage /> },
   { path: '/blog/post/:id', element: <PostPage /> },
   { path: '/blog/new', element: <PostPage /> },
   { path: '/blog', element: <BlogPage /> },
