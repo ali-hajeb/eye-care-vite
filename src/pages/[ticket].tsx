@@ -16,11 +16,9 @@ import axiosInstance from '../services/axiosInstance';
 import { IQuestion, ITicket } from './tickets';
 import { IPatient } from '../common/types';
 import { useAppSelector } from '../store';
-import { userLocalStorageKey } from '../features/UserAuthentication/constants';
 import { IUserSignUpObject } from '../features/UserAuthentication/types/user';
 import { isAxiosError } from 'axios';
 import { IconInfoCircle, IconTrash } from '@tabler/icons-react';
-import { theme } from '../theme';
 import { doubleDigit } from '../utils';
 
 interface IResponse {
