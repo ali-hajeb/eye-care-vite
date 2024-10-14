@@ -41,6 +41,9 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
     )
       .then(() => {
         setRes({ code: 200, message: 'مطلب با موفقیت منتشر شد.' });
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
       })
       .catch((err) => {
         if (isAxiosError(err)) {
