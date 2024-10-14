@@ -59,7 +59,7 @@ const MainPanelContainer: React.FunctionComponent<MainPanelContainerProps> = () 
       <AppShell.Navbar p="md">
         <SimpleNavbar items={data} />
       </AppShell.Navbar>
-      <AppShell.Main>
+      <AppShell.Main bg={'gray.3'}>
         <Outlet />
       </AppShell.Main>
     </AppShell>
