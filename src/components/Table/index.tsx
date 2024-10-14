@@ -29,7 +29,7 @@ const CustomTable: React.FunctionComponent<CustomTableProps> = ({
     const p = [];
     let total = 1;
     if (data.length >= limit) {
-      total = Math.round(data.length / limit);
+      total = Math.ceil(data.length / limit);
     }
 
     for (let i = 0; i < total; i++) {
