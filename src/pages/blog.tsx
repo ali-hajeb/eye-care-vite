@@ -15,6 +15,7 @@ export interface IPost {
   body: string;
   author: IDoctor | string;
   image?: string;
+  category: string
 }
 
 const BlogPage: React.FunctionComponent<BlogPageProps> = () => {

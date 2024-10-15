@@ -3,17 +3,25 @@ import {
   Box,
   Button,
   Card,
+  Combobox,
   Container,
   Flex,
   Group,
+  Input,
+  InputBase,
   TextInput,
+  useCombobox,
 } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import TextEditor from '../components/TextEditor';
 import axiosInstance from '../services/axiosInstance';
 import { isAxiosError } from 'axios';
-import { IconInfoCircle } from '@tabler/icons-react';
+import {
+  IconCaretRight,
+  IconChevronRight,
+  IconInfoCircle,
+} from '@tabler/icons-react';
 import { IPost } from './blog';
 
 export interface PostPageProps {}
@@ -23,21 +31,34 @@ interface IResponse {
   message: string;
 }
 
+const COMBO = ['ساختار چشم', 'بیماری چشم', 'آموزشی'];
+
 const PostPage: React.FunctionComponent<PostPageProps> = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
 
   const [loadingState, setLoadingState] = useState(false);
   const [res, setRes] = useState<IResponse>();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [comboValue, setComboValue] = useState<string | null>(null);
+
+  const options = COMBO.map((item) => (
+    <Combobox.Option value={item} key={item}>
+      {item}
+    </Combobox.Option>
+  ));
 
   const formSubmitHandler = (e: React.FormEvent) => {
     e?.preventDefault();
     setLoadingState(true);
     (id
-      ? axiosInstance.patch(`/tip/${id}`, { title, body })
-      : axiosInstance.post('/tip', { title, body })
+      ? axiosInstance.patch(`/tip/${id}`, { title, body, category: comboValue })
+      : axiosInstance.post('/tip', { title, body, category: comboValue })
     )
       .then(() => {
         setRes({ code: 200, message: 'مطلب با موفقیت منتشر شد.' });
@@ -61,9 +82,10 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
       axiosInstance
         .get(`/tip/${id}`)
         .then((res) => {
-          const { title, body } = res.data as IPost;
+          const { title, body, category } = res.data as IPost;
           setTitle(title);
           setBody(body);
+          setComboValue(category);
         })
         .catch((err) => {
           console.error(err);
@@ -114,16 +136,61 @@ const PostPage: React.FunctionComponent<PostPageProps> = () => {
               />
             )}
             <Flex direction={'column'} gap={'md'}>
-              <TextInput
-                placeholder="موضوع مطلب را وارد کنید"
-                onChange={titleInputChangeHandler}
-                value={title}
-              />
+              <Flex w={'100%'} gap={'md'} align={'center'}>
+                <Box>
+                  <Button
+                    variant="transparent"
+                    color="dark.9"
+                    onClick={() => navigate(-1)}
+                  >
+                    <IconChevronRight size={32} />
+                  </Button>
+                </Box>
+                <Box flex={1}>
+                  <TextInput
+                    placeholder="موضوع مطلب را وارد کنید"
+                    onChange={titleInputChangeHandler}
+                    value={title}
+                  />
+                </Box>
+                <Box>
+                  <Combobox
+                    store={combobox}
+                    onOptionSubmit={(val) => {
+                      setComboValue(val);
+                      combobox.closeDropdown();
+                    }}
+                  >
+                    <Combobox.Target>
+                      <InputBase
+                        component="button"
+                        type="button"
+                        pointer
+                        rightSection={<Combobox.Chevron />}
+                        rightSectionPointerEvents="none"
+                        onClick={() => combobox.toggleDropdown()}
+                      >
+                        {comboValue || (
+                          <Input.Placeholder>انتخاب دسته</Input.Placeholder>
+                        )}
+                      </InputBase>
+                    </Combobox.Target>
+
+                    <Combobox.Dropdown>
+                      <Combobox.Options>{options}</Combobox.Options>
+                    </Combobox.Dropdown>
+                  </Combobox>
+                </Box>
+              </Flex>
               <Box>
                 <TextEditor content={body} onChange={setBody} />
               </Box>
               <Group>
-                <Button disabled={loadingState} type="submit" loading={loadingState}>
+                <Button
+                  disabled={loadingState}
+                  type="submit"
+                  loading={loadingState}
+                >
                   {loadingState ? 'پردازش' : 'انتشار'}
                 </Button>
                 {id && (

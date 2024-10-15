@@ -17,7 +17,7 @@ import {
 import CustomTable from '../components/Table';
 import { useNavigate } from 'react-router-dom';
 import { utils, writeFile } from 'xlsx';
-import { EDUCATION, patientInfoFields } from '../features/UserAuthentication/constants/patientInfo';
+import {  patientInfoFields } from '../features/UserAuthentication/constants/patientInfo';
 import { transformValueToString } from '../utils/dataPresentation';
 import { IconDownload } from '@tabler/icons-react';
 

@@ -2,6 +2,7 @@ import {
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   headingsPlugin,
+  markdownShortcutPlugin,
   MDXEditor,
   MDXEditorMethods,
   toolbarPlugin,
@@ -9,6 +10,7 @@ import {
 } from '@mdxeditor/editor';
 import React, { useEffect } from 'react';
 import '@mdxeditor/editor/style.css';
+import { Group } from '@mantine/core';
 
 export interface TextEditorProps {
   content: string;
@@ -27,13 +29,14 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = ({ content, onChang
         ref={ref}
         plugins={[
           headingsPlugin(),
+          markdownShortcutPlugin(),
           toolbarPlugin({
             toolbarContents: () => (
-              <>
+              <Group>
                 <UndoRedo />
                 <BlockTypeSelect />
                 <BoldItalicUnderlineToggles />
-              </>
+              </Group>
             ),
           }),
         ]}
