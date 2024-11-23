@@ -31,7 +31,7 @@ interface IResponse {
   message: string;
 }
 
-const COMBO = ['ساختار چشم', 'بیماری چشم', 'آموزشی'];
+const COMBO = ['ساختار چشم', 'بیماری چشم', 'آموزشی', 'پیوند قرنیه'];
 
 const PostPage: React.FunctionComponent<PostPageProps> = () => {
   const navigate = useNavigate();
