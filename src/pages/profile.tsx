@@ -1,6 +1,7 @@
 import {
   Avatar,
   Button,
+  Card,
   Checkbox,
   Container,
   Group,
@@ -101,137 +102,139 @@ const ProfilePage: React.FunctionComponent<ProfilePageProps> = () => {
   }, []);
   return (
     <Container fluid>
-      <Group align="center" gap={32}>
-        <Avatar size={'xl'}></Avatar>
-        {profile ? (
-          <Title>{`دکتر ${profile.firstName} ${profile.lastName}`}</Title>
-        ) : (
-          <Skeleton height={35} width={200} radius="md" />
-        )}
-        {!profile?.isActive && (
-          <Button
-            my={'md'}
-            variant="subtle"
-            onClick={sendNewLink}
-            loading={linkLoading}
-          >
-            ارسال مجدد لینک فعالسازی
-          </Button>
-        )}
-      </Group>
-      {profile && (
-        <form onSubmit={formSubmitHandler}>
-          <Group grow>
+      <Card radius={'md'} shadow="md" px={25} py={25}>
+        <Group align="center" gap={32}>
+          <Avatar size={'xl'}></Avatar>
+          {profile ? (
+            <Title>{`دکتر ${profile.firstName} ${profile.lastName}`}</Title>
+          ) : (
+            <Skeleton height={35} width={200} radius="md" />
+          )}
+          {!profile?.isActive && (
+            <Button
+              my={'md'}
+              variant="subtle"
+              onClick={sendNewLink}
+              loading={linkLoading}
+            >
+              ارسال مجدد لینک فعالسازی
+            </Button>
+          )}
+        </Group>
+        {profile && (
+          <form onSubmit={formSubmitHandler}>
+            <Group grow>
+              <TextInput
+                label="نام"
+                key={form.key('firstName')}
+                {...form.getInputProps('firstName')}
+              />
+              <TextInput
+                label="نام خانوادگی"
+                key={form.key('lastName')}
+                {...form.getInputProps('lastName')}
+              />
+            </Group>
             <TextInput
-              label="نام"
-              key={form.key('firstName')}
-              {...form.getInputProps('firstName')}
-            />
-            <TextInput
-              label="نام خانوادگی"
-              key={form.key('lastName')}
-              {...form.getInputProps('lastName')}
-            />
-          </Group>
-          <TextInput
-            type="number"
-            label="کد ملی"
-            key={form.key('idCode')}
-            {...form.getInputProps('idCode')}
-          />
-          <TextInput
-            type="email"
-            label="ایمیل"
-            key={form.key('email')}
-            {...form.getInputProps('email')}
-          />
-          <TextInput
-            type="password"
-            label="گذرواژه"
-            key={form.key('password')}
-            {...form.getInputProps('password')}
-          />
-          <TextInput
-            type="password"
-            label="تأیید گذرواژه"
-            key={form.key('cpassword')}
-            {...form.getInputProps('cpassword')}
-          />
-          <Group grow>
-            <div>
-              <InputLabel htmlFor="gender">جنسیت</InputLabel>
-              <Input
-                id="gender"
-                component="select"
-                rightSection={<IconChevronDown size={14} stroke={1.5} />}
-                key={form.key('gender')}
-                {...form.getInputProps('gender')}
-                pointer
-              >
-                <option value="0">مرد</option>
-                <option value="1">زن</option>
-              </Input>
-            </div>
-          </Group>
-          <Group grow>
-            <div>
-              <InputLabel htmlFor="major">مدرک</InputLabel>
-              <Input
-                id="major"
-                component="select"
-                rightSection={<IconChevronDown size={14} stroke={1.5} />}
-                key={form.key('major')}
-                {...form.getInputProps('major')}
-                pointer
-              >
-                <option value="عمومی">عمومی</option>
-                <option value="متخصص">متخصص</option>
-                <option value="فوق تخصص">فوق تخصص</option>
-              </Input>
-            </div>
-            <TextInput
-              label="تخصص"
-              key={form.key('field')}
-              {...form.getInputProps('field')}
-            />
-          </Group>
-
-          <Group grow>
-            <TextInput
-              label="کد نظام پزشکی"
-              key={form.key('nezam')}
-              {...form.getInputProps('nezam')}
-            />
-            <TextInput
-              label="تعداد پذیرش روزانه"
               type="number"
-              key={form.key('maxPatients')}
-              {...form.getInputProps('maxPatients')}
+              label="کد ملی"
+              key={form.key('idCode')}
+              {...form.getInputProps('idCode')}
             />
-          </Group>
+            <TextInput
+              type="email"
+              label="ایمیل"
+              key={form.key('email')}
+              {...form.getInputProps('email')}
+            />
+            <TextInput
+              type="password"
+              label="گذرواژه"
+              key={form.key('password')}
+              {...form.getInputProps('password')}
+            />
+            <TextInput
+              type="password"
+              label="تأیید گذرواژه"
+              key={form.key('cpassword')}
+              {...form.getInputProps('cpassword')}
+            />
+            <Group grow>
+              <div>
+                <InputLabel htmlFor="gender">جنسیت</InputLabel>
+                <Input
+                  id="gender"
+                  component="select"
+                  rightSection={<IconChevronDown size={14} stroke={1.5} />}
+                  key={form.key('gender')}
+                  {...form.getInputProps('gender')}
+                  pointer
+                >
+                  <option value="0">مرد</option>
+                  <option value="1">زن</option>
+                </Input>
+              </div>
+            </Group>
+            <Group grow>
+              <div>
+                <InputLabel htmlFor="major">مدرک</InputLabel>
+                <Input
+                  id="major"
+                  component="select"
+                  rightSection={<IconChevronDown size={14} stroke={1.5} />}
+                  key={form.key('major')}
+                  {...form.getInputProps('major')}
+                  pointer
+                >
+                  <option value="عمومی">عمومی</option>
+                  <option value="متخصص">متخصص</option>
+                  <option value="فوق تخصص">فوق تخصص</option>
+                </Input>
+              </div>
+              <TextInput
+                label="تخصص"
+                key={form.key('field')}
+                {...form.getInputProps('field')}
+              />
+            </Group>
 
-          <div>
-            <InputLabel>برنامه هفتگی</InputLabel>
-            <Checkbox.Group value={weekdays} onChange={setWeekdays}>
-              <Group>
-                {weekdayNames.map((d) => (
-                  <Checkbox key={d} value={d} label={d} />
-                ))}
-              </Group>
-            </Checkbox.Group>
-          </div>
+            <Group grow>
+              <TextInput
+                label="کد نظام پزشکی"
+                key={form.key('nezam')}
+                {...form.getInputProps('nezam')}
+              />
+              <TextInput
+                label="تعداد پذیرش روزانه"
+                type="number"
+                key={form.key('maxPatients')}
+                {...form.getInputProps('maxPatients')}
+              />
+            </Group>
 
-          <Button
-            fullWidth
-            mt={'sm'}
-            mb={'sm'}
-            type="submit"
-            disabled={status === 'loading'}
-          >
-            {status === 'loading' ? 'در حال پردازش ...' : 'ویرایش'}
-          </Button>
-        </form>
-      )}
+            <div>
+              <InputLabel>برنامه هفتگی</InputLabel>
+              <Checkbox.Group value={weekdays} onChange={setWeekdays}>
+                <Group>
+                  {weekdayNames.map((d) => (
+                    <Checkbox key={d} value={d} label={d} />
+                  ))}
+                </Group>
+              </Checkbox.Group>
+            </div>
+
+            <Button
+              fullWidth
+              mt={'sm'}
+              mb={'sm'}
+              type="submit"
+              disabled={status === 'loading'}
+            >
+              {status === 'loading' ? 'در حال پردازش ...' : 'ویرایش'}
+            </Button>
+          </form>
+        )}
+      </Card>
     </Container>
   );
 };
