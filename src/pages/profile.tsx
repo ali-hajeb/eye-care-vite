@@ -28,18 +28,20 @@ export interface ProfilePageProps {}
 const ProfilePage: React.FunctionComponent<ProfilePageProps> = () => {
   const [profile, setProfile] = useState<IDoctor>();
   const [weekdays, setWeekdays] = useState<string[]>([]);
+  const [linkLoading, setLinkLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { response, status } = useAppSelector((state) => state.user);
 
   const form = useForm({
     mode: 'uncontrolled',
     validate: {
-      cpassword: matchesField('password', 'گذرواژه‌ها یکسان نیستند'),
+      // cpassword: matchesField('password', 'گذرواژه‌ها یکسان نیستند'),
       idCode: hasLength(10, 'کد ملی باید ده رقمی باشد'),
     },
-    validateInputOnChange: ['cpassword'],
+    // validateInputOnChange: ['cpassword'],
     initialValues: {
       idCode: profile?.idCode || '',
+      email: profile?.email || '',
       password: '',
       cpassword: '',
       firstName: profile?.firstName || '',
@@ -75,6 +77,14 @@ const ProfilePage: React.FunctionComponent<ProfilePageProps> = () => {
     },
   );
 
+  const sendNewLink = async () => {
+    setLinkLoading(true);
+    axiosInstance
+      .post('/doctor/newLink', {})
+      .catch((err) => console.log(err))
+      .finally(() => setLinkLoading(false));
+  };
+
   useEffect(() => {
     axiosInstance
       .get('/doctor/me')
@@ -98,6 +108,16 @@ const ProfilePage: React.FunctionComponent<ProfilePageProps> = () => {
         ) : (
           <Skeleton height={35} width={200} radius="md" />
         )}
+        {!profile?.isActive && (
+          <Button
+            my={'md'}
+            variant="subtle"
+            onClick={sendNewLink}
+            loading={linkLoading}
+          >
+            ارسال مجدد لینک فعالسازی
+          </Button>
+        )}
       </Group>
       {profile && (
         <form onSubmit={formSubmitHandler}>
@@ -118,6 +138,12 @@ const ProfilePage: React.FunctionComponent<ProfilePageProps> = () => {
             label="کد ملی"
             key={form.key('idCode')}
             {...form.getInputProps('idCode')}
+          />
+          <TextInput
+            type="email"
+            label="ایمیل"
+            key={form.key('email')}
+            {...form.getInputProps('email')}
           />
           <TextInput
             type="password"

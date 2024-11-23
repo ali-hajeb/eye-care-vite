@@ -55,7 +55,7 @@ const BlogPage: React.FunctionComponent<BlogPageProps> = () => {
           افزودن
         </Button>
       </Group>
-      <Card radius={'md'} shadow="md">
+      <Card radius={'md'} shadow="md" mt={'md'}>
         {loadingState ? (
           <Center>در حال پردازش...</Center>
         ) : (

@@ -95,7 +95,7 @@ const TicketsPage: React.FunctionComponent<TicketsPageProps> = () => {
   return (
     <Container>
       <Title>پرسش‌های بیماران</Title>
-      <Card radius={'md'} shadow="md">
+      <Card radius={'md'} shadow="md" mt={'md'}>
         <Group mb={'md'}>
           <TextInput
             placeholder="عبارت جستجو"

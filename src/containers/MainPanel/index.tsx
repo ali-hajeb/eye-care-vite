@@ -56,10 +56,10 @@ const MainPanelContainer: React.FunctionComponent<MainPanelContainerProps> = () 
         <Title order={1} fz={'h2'}>سامانه مدیریت بیماران</Title>
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md">
+      <AppShell.Navbar p="md" onClick={toggleMobile}>
         <SimpleNavbar items={data} />
       </AppShell.Navbar>
-      <AppShell.Main bg={'gray.3'}>
+      <AppShell.Main bg={'gray.1'}>
         <Outlet />
       </AppShell.Main>
     </AppShell>

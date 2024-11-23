@@ -124,7 +124,7 @@ const PatientPage: React.FunctionComponent<PatientPageProps> = () => {
       <Grid>
         <Grid.Col span={{ base: 12, md: 12, lg: 4 }}>
           <Title mb={'md'}>مشخصات بیمار</Title>
-          <Card radius={'md'} dir="rtl" shadow={'sm'}>
+          <Card radius={'md'} dir="rtl" shadow={'sm'} mt={'md'}>
             {patient &&
               Object.keys(patient).map((p) => {
                 console.log(

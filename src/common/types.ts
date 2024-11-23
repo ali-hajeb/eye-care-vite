@@ -40,12 +40,14 @@ export interface IDoctor {
   lastName: string;
   gender: boolean;
   idCode: string;
+  email: string;
   nezam: string;
   major: string;
   field: string;
   patients: string[];
   workDays: number[];
-  maxPatients: number
+  maxPatients: number;
+  isActive: boolean
 }
 
 export interface IPreMed {

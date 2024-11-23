@@ -47,7 +47,7 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
   return (
     <Box>
       <Title>نوبت‌‌ها</Title>
-      <Grid>
+      <Grid mt={'md'}>
         <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
           <Card shadow="md" radius={'md'} px={1} py={5} mih={'100%'}>
             <Flex align={'center'} justify={'center'}>

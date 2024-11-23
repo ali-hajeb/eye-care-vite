@@ -2,6 +2,8 @@ import {
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   headingsPlugin,
+  imagePlugin,
+  InsertImage,
   markdownShortcutPlugin,
   MDXEditor,
   MDXEditorMethods,
@@ -29,6 +31,7 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = ({ content, onChang
         ref={ref}
         plugins={[
           headingsPlugin(),
+          imagePlugin(),
           markdownShortcutPlugin(),
           toolbarPlugin({
             toolbarContents: () => (
@@ -36,6 +39,7 @@ const TextEditor: React.FunctionComponent<TextEditorProps> = ({ content, onChang
                 <UndoRedo />
                 <BlockTypeSelect />
                 <BoldItalicUnderlineToggles />
+                <InsertImage />
               </Group>
             ),
           }),

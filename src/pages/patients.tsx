@@ -113,7 +113,7 @@ const PatientsPage: React.FunctionComponent<PatientsPageProps> = () => {
         بیماران
       </Title>
       {/* <PersonList list={patients} /> */}
-      <Card radius={'md'} shadow="md">
+      <Card radius={'md'} shadow="md" mt={'md'}>
         <Group mb={'md'}>
           <TextInput
             placeholder="عبارت جستجو"

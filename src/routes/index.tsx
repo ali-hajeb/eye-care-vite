@@ -12,6 +12,8 @@ import PostPage from '../pages/[post]';
 import BlogPage from '../pages/blog';
 import TicketsPage from '../pages/tickets';
 import TicketPage from '../pages/[ticket]';
+import VerifyPage from '../pages/verify';
+import RequestPassPage from '../pages/requestPassLink';
 
 const protectedRoutes: RouteObject[] = [
   { index: true, element: <DashboardPage /> },
@@ -29,7 +31,9 @@ const protectedRoutes: RouteObject[] = [
 const authenticationRoutes: RouteObject[] = [
   { path: '/login', element: <LoginPage /> },
   { path: '/signup', element: <SignupPage /> },
-  { path: '/forget', element: <ForgetPassPage /> },
+  { path: '/changePass', element: <ForgetPassPage /> },
+  { path: '/verify', element: <VerifyPage /> },
+  { path: '/forget', element: <RequestPassPage /> },
 ];
 
 const routes = { protectedRoutes, authenticationRoutes };
