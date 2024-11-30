@@ -25,7 +25,6 @@ const NobatPage: React.FunctionComponent<NobatPageProps> = () => {
       .get('/nobat/doc/all', {
         params: {
           filter: { doctor: _id, date: updated.toISOString() },
-          limit: 5,
           populate: ['patient'],
         },
       })
